@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import net.openwebinars.jpa.entities.model.Product;
+import net.openwebinars.jpa.entities.model.Productv2;
 import org.h2.tools.Server;
 
 import java.sql.SQLException;
@@ -37,6 +38,16 @@ public class App {
         entityManager.getTransaction().commit();
 
 
+        Productv2 p2 = Productv2.builder()
+                .id(2L)
+                .name("Another product")
+                .price(2.25)
+                .build();
+
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(p2);
+        entityManager.getTransaction().commit();
 
     }
 
