@@ -1,4 +1,4 @@
-package net.openwebinars.jpa.entities.model;
+package net.openwebinars.jpa.entities.model.products;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

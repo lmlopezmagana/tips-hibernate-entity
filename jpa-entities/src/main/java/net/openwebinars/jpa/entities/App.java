@@ -4,8 +4,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
-import net.openwebinars.jpa.entities.model.Product;
-import net.openwebinars.jpa.entities.model.Productv2;
+import net.openwebinars.jpa.entities.model.book.Book;
+import net.openwebinars.jpa.entities.model.book.Library;
+import net.openwebinars.jpa.entities.model.products.Product;
+import net.openwebinars.jpa.entities.model.products.Productv2;
 import org.h2.tools.Server;
 
 import java.sql.SQLException;
@@ -24,6 +26,67 @@ public class App {
 
         EntityManager entityManager = initEM();
 
+        //testProducts(entityManager);
+
+        //testBooks(entityManager);
+
+        testBooksV2(entityManager);
+
+
+
+
+
+    }
+
+    public static void testBooks(EntityManager entityManager) {
+
+        Library l = new Library();
+        l.setName("Openwebinars Library");
+        entityManager.getTransaction().begin();
+        entityManager.persist(l);
+        entityManager.getTransaction().commit();
+
+        Book book1 = new Book();
+        book1.setTitle("El Quijote");
+
+        Book book2 = new Book();
+        book2.setTitle("Hibernate for dummies");
+
+        l.getBooks().add(book1);
+        l.getBooks().add(book2);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(l);
+        entityManager.getTransaction().commit();
+
+    }
+
+    public static void testBooksV2(EntityManager entityManager) {
+
+        Library l = new Library();
+        l.setName("Openwebinars Library");
+        entityManager.getTransaction().begin();
+        entityManager.persist(l);
+        entityManager.getTransaction().commit();
+
+        Book book1 = new Book();
+        book1.setTitle("El Quijote");
+
+        Book book2 = new Book();
+        book2.setTitle("Hibernate for dummies");
+
+        l.getBooks().add(book1);
+        l.getBooks().add(book2);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(book1);
+        entityManager.persist(book2);
+        entityManager.persist(l);
+        entityManager.getTransaction().commit();
+
+    }
+
+    public static void testProducts(EntityManager entityManager) {
         Product p = new Product(1L, "One product", "http://", 1.25);
 
         entityManager.getTransaction().begin();
@@ -34,7 +97,7 @@ public class App {
         entityManager.getTransaction().begin();
         TypedQuery<Product> query = entityManager.createQuery("select p from Product p", Product.class);
         query.getResultStream()
-                        .forEach(p1 -> System.out.println(String.format("%d %s %.2f", p1.getId(), p1.getName(), p1.getPrice())));
+                .forEach(p1 -> System.out.println(String.format("%d %s %.2f", p1.getId(), p1.getName(), p1.getPrice())));
         entityManager.getTransaction().commit();
 
 
