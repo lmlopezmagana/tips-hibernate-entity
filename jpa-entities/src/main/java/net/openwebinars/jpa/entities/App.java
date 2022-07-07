@@ -30,7 +30,9 @@ public class App {
 
         //testBooks(entityManager);
 
-        testBooksV2(entityManager);
+        //testBooksV2(entityManager);
+
+        testBooksV3(entityManager);
 
 
 
@@ -85,6 +87,33 @@ public class App {
         entityManager.getTransaction().commit();
 
     }
+    public static void testBooksV3(EntityManager entityManager) {
+
+        Library l = new Library();
+        l.setName("Openwebinars Library");
+        entityManager.getTransaction().begin();
+        entityManager.persist(l);
+        entityManager.getTransaction().commit();
+
+        Book book1 = new Book();
+        book1.setTitle("El Quijote");
+        book1.setIsbn("978-123456789");
+
+        Book book2 = new Book();
+        book2.setTitle("Hibernate for dummies");
+        book2.setIsbn("978-987654321");
+
+        l.getBooks().add(book1);
+        l.getBooks().add(book2);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(book1);
+        entityManager.persist(book2);
+        entityManager.persist(l);
+        entityManager.getTransaction().commit();
+
+    }
+
 
     public static void testProducts(EntityManager entityManager) {
         Product p = new Product(1L, "One product", "http://", 1.25);
