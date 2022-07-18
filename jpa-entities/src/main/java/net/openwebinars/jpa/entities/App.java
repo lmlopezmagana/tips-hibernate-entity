@@ -81,8 +81,8 @@ public class App {
         l.getBooks().add(book2);
 
         entityManager.getTransaction().begin();
-        entityManager.persist(book1);
-        entityManager.persist(book2);
+        //entityManager.persist(book1);
+        //entityManager.persist(book2);
         entityManager.persist(l);
         entityManager.getTransaction().commit();
 
